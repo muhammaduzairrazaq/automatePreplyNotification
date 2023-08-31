@@ -6,6 +6,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
+USERNAME = os.environ.get('USERNAME')
+PASSWORD = os.environ.get('PASSWORD')
+
 def Scrap(link):
 
     url = link
@@ -19,7 +22,7 @@ def Scrap(link):
 
 def sendEmail(mailSubject, mailBody, pageLink):
 
-    sender_email = "iamprouzair@gmail.com"
+    sender_email = USERNAME
     receiver_email = "iamprouzair@gmail.com"
     subject = mailSubject
     message = MIMEMultipart()
@@ -33,8 +36,8 @@ def sendEmail(mailSubject, mailBody, pageLink):
     message.attach(MIMEText(body, "plain"))
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-    smtp_username = "iamprouzair@gmail.com"
-    smtp_password = "stbjjbxvqnkhncaq"
+    smtp_username = USERNAME
+    smtp_password = PASSWORD
     server = smtplib.SMTP(smtp_server, smtp_port)
     server.starttls()
     server.login(smtp_username, smtp_password)
@@ -52,6 +55,7 @@ def readFiles(path):
     return returnJobs
    
 def writeFiles(path, jobList):
+    
     if os.path.exists(path):
         with open(path,'w') as file:
             for job in jobList:

@@ -23,7 +23,7 @@ def Scrap(link):
 def sendEmail(mailSubject, mailBody, pageLink):
 
     sender_email = USERNAME
-    receiver_email = "iamprouzair@gmail.com"
+    receiver_email = "uzairrazzaq@gmail.com"
     subject = mailSubject
     message = MIMEMultipart()
     message["From"] = sender_email

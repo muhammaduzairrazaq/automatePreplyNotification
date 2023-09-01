@@ -84,7 +84,7 @@ def execute():
                 pythonJobsToSend.append(cj)
         sendEmail('Python Jobs', pythonJobsToSend, urlPythonJobs)
         writeFiles('prevPythonJobs.txt', pythonJobsScraped)
-    sendEmail('I am running Chill',pythonJobsToSend,urlPythonJobs)
+    sendEmail('Running without any virtual environment',pythonJobsToSend,urlPythonJobs)
     
 
 if __name__ == "__main__":

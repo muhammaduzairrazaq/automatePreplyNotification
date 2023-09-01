@@ -1,3 +1,3 @@
-I am trying to set up a private cloud. I am thinking to buy a synology 4-Bay DS423+ Diskstation or similar. Are you able to help me set this up?  Thank you 
-I was wondering if you would be able to teach Computer Science AL level Computer Science classes as I am taking the course right now and will be needing professional help, please let me know. Best regards Jet
-I have two kids, 5 and 6 years old who I want to start learning to code using scratch or Python. Do you teach kids that young?
+My daughter is learning Unity 2D. She has already progressed with her game (she is not a beginner) but it has come to a point that she has specific questions because she got stuck. She needs help debugging her code and finding her logic errors. We need someone with experience in Unity 2D
+I need help with an assignment. I need to start a new project in Visual Studio using C++. Are you familiar with Microsoft Visual Studio? Thank you
+I am trying to set up a private cloud. I am thinking to buy a synology 4-Bay DS423+ Diskstation or similar. Are you able to help me set this up?  Thank you

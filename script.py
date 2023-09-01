@@ -9,6 +9,10 @@ import os
 USERNAME = os.environ.get('USERNAME')
 PASSWORD = os.environ.get('PASSWORD')
 
+
+# USERNAME = 'iamprouzair@gmail.com'
+# PASSWORD = 'tvusgzrabxuscrud'
+
 def Scrap(link):
 
     url = link
@@ -23,7 +27,7 @@ def Scrap(link):
 def sendEmail(mailSubject, mailBody, pageLink):
 
     sender_email = USERNAME
-    receiver_email = "uzairrazzaq@gmail.com"
+    receiver_email = "uzairrazzaq68@gmail.com"
     subject = mailSubject
     message = MIMEMultipart()
     message["From"] = sender_email
@@ -88,5 +92,5 @@ def execute():
 if __name__ == "__main__":
 
    execute()
-
+   
    

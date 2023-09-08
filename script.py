@@ -6,23 +6,33 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
-USERNAME = os.environ.get('USERNAME')
-PASSWORD = os.environ.get('PASSWORD')
+# USERNAME = os.environ.get('USERNAME')
+# PASSWORD = os.environ.get('PASSWORD')
 
 
-# USERNAME = 'iamprouzair@gmail.com'
-# PASSWORD = 'tvusgzrabxuscrud'
+USERNAME = 'iamprouzair@gmail.com'
+PASSWORD = 'tvusgzrabxuscrud'
 
 def Scrap(link):
 
-    url = link
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    messageClass = "CardSummaryText-sc-1mpm6on-6 dldCOx"
-    messages = soup.find_all(class_=messageClass)
-    numberMessages = 3
-    extractedMessages = [message.get_text().replace('\n', ' ').strip() for message in messages[:numberMessages]]
-    return extractedMessages
+    try:
+        response = requests.get(link)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        messageClass = "CardSummaryText-sc-1mpm6on-6 dldCOx"
+        messages = soup.find_all(class_=messageClass)
+        numberMessages = 3
+        extractedMessages = [message.get_text().replace('\n', ' ').strip() for message in messages[:numberMessages]]
+        return extractedMessages
+    
+    except requests.exceptions.RequestException as e:
+        print(f"Error making the HTTP request: {e}")
+        return []
+    
+    except Exception as e:
+        print(f"Error parsing HTML: {e}")
+        return []
+
+
 
 def sendEmail(mailSubject, mailBody, pageLink):
 
@@ -33,38 +43,58 @@ def sendEmail(mailSubject, mailBody, pageLink):
     message["From"] = sender_email
     message["To"] = receiver_email
     message["Subject"] = subject
+
     body=''
     for i in range(len(mailBody)):
         body += f'{i+1}. {mailBody[i]} \n'
     body += pageLink
+
     message.attach(MIMEText(body, "plain"))
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
     smtp_username = USERNAME
     smtp_password = PASSWORD
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-    server.login(smtp_username, smtp_password)
-    server.sendmail(sender_email, receiver_email, message.as_string())
-    server.quit()
+
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_username, smtp_password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        server.quit()
+        print('Email sended successfully!')
+
+    except smtplib.SMTPException as e:
+        print(f'Error: Unable to send email - {e}')
+    
+    except Exception as e:
+        print(f'An unexpected error occurred - {e}')
+
 
 def readFiles(path):
+    try:
+        returnJobs = []
+        if os.path.exists(path):
+            with open(path, 'r') as file:
+                for line in file:
+                    line = line.replace('\n', ' ').strip()
+                    returnJobs.append(line)
+        return returnJobs
+    
+    except Exception as e:
+        print(f'An error occurred while reading the file: {e}')
+        return []
 
-    returnJobs = []
-    if os.path.exists(path):
-        with open(path, 'r') as file:
-            for line in file:
-                line = line.replace('\n', ' ').strip()
-                returnJobs.append(line)
-    return returnJobs
-   
+    
 def writeFiles(path, jobList):
     
-    if os.path.exists(path):
-        with open(path,'w') as file:
-            for job in jobList:
-                file.write(job)
-                file.write('\n')
+    try:
+        if os.path.exists(path):
+            with open(path,'w') as file:
+                for job in jobList:
+                    file.write(job)
+                    file.write('\n')
+    except Exception as e:
+        print(f'An error occurred while writing the file: {e}')
 
 def execute():
 
@@ -90,7 +120,7 @@ def execute():
         writeFiles('prevPythonJobs.txt', pythonJobsScraped)
 
 if __name__ == "__main__":
-
+   
    execute()
    
    

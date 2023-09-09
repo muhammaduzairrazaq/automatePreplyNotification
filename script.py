@@ -6,12 +6,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
-USERNAME = os.environ.get('USERNAME')
-PASSWORD = os.environ.get('PASSWORD')
+# USERNAME = os.environ.get('USERNAME')
+# PASSWORD = os.environ.get('PASSWORD')
 
 
-# USERNAME = 'iamprouzair@gmail.com'
-# PASSWORD = 'tvusgzrabxuscrud'
+USERNAME = 'iamprouzair@gmail.com'
+PASSWORD = 'tvusgzrabxuscrud'
 
 def Scrap(link):
 
@@ -91,9 +91,10 @@ def writeFiles(path, jobList):
     try:
         if os.path.exists(path):
             with open(path,'w') as file:
-                for job in jobList:
+                for i, job in enumerate(jobList):
                     file.write(job)
-                    file.write('\n')
+                    if i < len(jobList) - 1:
+                        file.write('\n')
 
     except FileNotFoundError:
         print(f'File not found: {path}')

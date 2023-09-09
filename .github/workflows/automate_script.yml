@@ -56,6 +56,32 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+        # Create or populate prevPythonJobs.txt here (modify this step as needed)
+      - name: Create or Populate prevPythonJobs.txt
+        run: |
+          echo "Sample Python job 1" > prevPythonJobs.txt
+          echo "Sample Python job 2" >> prevPythonJobs.txt
+          echo "Sample Python job 3" >> prevPythonJobs.txt
+
+      # Now copy prevPythonJobs.txt
+      - name: Copy prevPythonJobs.txt
+        run: |
+          cp prevPythonJobs.txt $GITHUB_WORKSPACE/
+        continue-on-error: true
+
+          # Create or populate prevComputerJobs.txt here (modify this step as needed)
+      - name: Create or Populate prevComputerJobs.txt
+        run: |
+          echo "Sample Computer job 1" > prevComputerJobs.txt
+          echo "Sample Computer job 2" >> prevComputerJobs.txt
+          echo "Sample Computer job 3" >> prevComputerJobs.txt
+
+      # Now copy prevComputerJobs.txt
+      - name: Copy prevComputerJobs.txt
+        run: |
+          cp prevComputerJobs.txt $GITHUB_WORKSPACE/
+        continue-on-error: true
+
       - name: Save Previous Computer Science Jobs as Artifact
         run: |
           python script.py

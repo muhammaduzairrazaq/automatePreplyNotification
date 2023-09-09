@@ -73,7 +73,8 @@ def sendEmail(mailSubject, mailBody, pageLink):
 def readFiles(path):
     try:
         returnJobs = []
-        if os.path.exists(path):
+        abs_path = os.path.join(os.getcwd(), path)
+        if os.path.exists(abs_path):
             with open(path, 'r') as file:
                 for line in file:
                     returnJobs.append(line.strip()) 
@@ -89,7 +90,8 @@ def readFiles(path):
 def writeFiles(path, jobList):
     
     try:
-        if os.path.exists(path):
+        abs_path = os.path.join(os.getcwd(), path)
+        if os.path.exists(abs_path):
             with open(path,'w') as file:
                 for i, job in enumerate(jobList):
                     file.write(job)

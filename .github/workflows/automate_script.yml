@@ -2,7 +2,8 @@ name: Automate Job Scraping and Notifications
 
 on:
   schedule:
-    - cron: "30 * * * *"
+    # - cron: "30 * * * *"
+    - cron: "*/1 * * * *"
 
 jobs:
   automate:
@@ -20,7 +21,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-          node-version: 16   # Specify Node.js version 16
+          node-version: 16  
 
       - name: Install Dependencies
         run: |

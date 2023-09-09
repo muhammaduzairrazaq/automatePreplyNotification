@@ -3,7 +3,7 @@ name: Automate Job Scraping and Notifications
 on:
   schedule:
     # - cron: "30 * * * *"
-    - cron: "*/1 * * * * *"
+    - cron: "*/5 * * * * *"
 
 jobs:
   automate:

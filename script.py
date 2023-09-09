@@ -123,6 +123,7 @@ def execute():
     
     check_for_new_jobs(computer_category, url_computer_jobs, 'prevComputerJobs.txt')
     check_for_new_jobs(python_category, url_python_jobs, 'prevPythonJobs.txt')
+    sendEmail('I am running',[])
 
 if __name__ == "__main__":
    

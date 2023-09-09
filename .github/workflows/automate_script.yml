@@ -1,8 +1,38 @@
+# name: Automate Job Scraping and Notifications
+
+# on:
+#   schedule:
+#     # - cron: "30 * * * *"
+#     - cron: "*/1 * * * *"
+
+# jobs:
+#   automate:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       USERNAME: ${{ secrets.SMTP_USERNAME }}
+#       PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
+
+#       - name: Set up Python with Node.js
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.x
+          
+#       - name: Install Dependencies
+#         run: |
+#           pip install -r requirements.txt
+
+#       - name: Run Script
+#         run: python script.py
+
 name: Automate Job Scraping and Notifications
 
 on:
   schedule:
-    # - cron: "30 * * * *"
     - cron: "*/1 * * * *"
 
 jobs:
@@ -17,14 +47,34 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python with Node.js
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-          
+
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run Script
-        run: python script.py
+      - name: Save Previous Computer Science Jobs as Artifact
+        run: |
+          python script.py
+          cp prevComputerJobs.txt $GITHUB_WORKSPACE/
+        continue-on-error: true
+
+      - name: Save Previous Python Jobs as Artifact
+        run: |
+          cp prevPythonJobs.txt $GITHUB_WORKSPACE/
+        continue-on-error: true
+
+      - name: Upload Previous Computer Science Jobs as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: previous-computer-jobs
+          path: $GITHUB_WORKSPACE/prevComputerJobs.txt
+
+      - name: Upload Previous Python Jobs as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: previous-python-jobs
+          path: $GITHUB_WORKSPACE/prevPythonJobs.txt

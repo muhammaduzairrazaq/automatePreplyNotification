@@ -100,6 +100,20 @@ jobs:
           echo "Sample Computer Science job 3" >> prevComputerJobs.txt
         if: steps.check_artifacts.outputs.artifacts_exist == 'false'
 
+            
+        # for debugging
+          
+      - name: List Files in Workspace
+        run: |
+          ls -l
+        continue-on-error: true
+          
+      - name: List Files in Current Directory
+        run: |
+          pwd
+          ls -l
+        continue-on-error: true
+
       # Run your script
       - name: Run Python Script
         run: python script.py

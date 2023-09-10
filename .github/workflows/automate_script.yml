@@ -69,6 +69,20 @@ jobs:
             echo "::set-output name=artifacts_exist::false"
           fi
         continue-on-error: true
+        
+        # for debugging
+          
+      - name: List Files in Workspace
+        run: |
+          ls -l
+        continue-on-error: true
+          
+      - name: List Files in Current Directory
+        run: |
+          pwd
+          ls -l
+        continue-on-error: true
+
 
       # Create or populate prevPythonJobs.txt here (modify this step as needed)
       - name: Create or Populate prevPythonJobs.txt

@@ -187,9 +187,8 @@ def sendEmail(mailSubject, mailBody, pageLink):
     except Exception as e:
         print(f'An unexpected error occurred - {e}')
 
-def readJobsFromArtifact(artifact_name):
+def readJobsFromArtifact(artifact_path):
     try:
-        artifact_path = os.path.join(os.environ['GITHUB_WORKSPACE'], artifact_name)
         with open(artifact_path, 'r') as file:
             return [line.strip() for line in file.readlines()]
     except FileNotFoundError:
@@ -199,9 +198,8 @@ def readJobsFromArtifact(artifact_name):
         print(f'An error occurred while reading the artifact: {e}')
         return []
 
-def writeJobsToArtifact(artifact_name, jobList):
+def writeJobsToArtifact(artifact_path, jobList):
     try:
-        artifact_path = os.path.join(os.environ['GITHUB_WORKSPACE'], artifact_name)
         with open(artifact_path, 'w') as file:
             for job in jobList:
                 file.write(job + '\n')
@@ -229,8 +227,8 @@ def execute():
     url_computer_jobs = "https://preply.com/en/online/computer-tutoring-jobs"
     url_python_jobs = "https://preply.com/en/online/python-tutoring-jobs"
     
-    check_for_new_jobs(computer_category, url_computer_jobs, 'previous-computer-jobs')
-    check_for_new_jobs(python_category, url_python_jobs, 'previous-python-jobs')
+    check_for_new_jobs(computer_category, url_computer_jobs, 'prevComputerJobs.txt')
+    check_for_new_jobs(python_category, url_python_jobs, 'prevPythonJobs.txt')
 
 if __name__ == "__main__":
     execute()

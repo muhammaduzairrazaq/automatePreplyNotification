@@ -28,6 +28,8 @@
 
 #       - name: Run Script
 #         run: python script.py
+
+
 name: Automate Job Scraping and Notifications
 
 on:
@@ -55,12 +57,26 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      # Check if the artifacts already exist
+      - name: Check for Existing Artifacts
+        id: check_artifacts
+        run: |
+          if [[ -f "prevPythonJobs.txt" && -f "prevComputerJobs.txt" ]]; then
+            echo "Artifacts already exist."
+            echo "::set-output name=artifacts_exist::true"
+          else
+            echo "Artifacts do not exist."
+            echo "::set-output name=artifacts_exist::false"
+          fi
+        continue-on-error: true
+
       # Create or populate prevPythonJobs.txt here (modify this step as needed)
       - name: Create or Populate prevPythonJobs.txt
         run: |
           echo "Sample Python job 1" > prevPythonJobs.txt
           echo "Sample Python job 2" >> prevPythonJobs.txt
           echo "Sample Python job 3" >> prevPythonJobs.txt
+        if: steps.check_artifacts.outputs.artifacts_exist == 'false'
 
       # Create or populate prevComputerJobs.txt here (modify this step as needed)
       - name: Create or Populate prevComputerJobs.txt
@@ -68,7 +84,8 @@ jobs:
           echo "Sample Computer Science job 1" > prevComputerJobs.txt
           echo "Sample Computer Science job 2" >> prevComputerJobs.txt
           echo "Sample Computer Science job 3" >> prevComputerJobs.txt
-          
+        if: steps.check_artifacts.outputs.artifacts_exist == 'false'
+
       # Run your script
       - name: Run Python Script
         run: python script.py
@@ -79,6 +96,7 @@ jobs:
         with:
           name: previous-python-jobs
           path: prevPythonJobs.txt
+        if: steps.check_artifacts.outputs.artifacts_exist == 'false'
 
       # Upload prevComputerJobs.txt as an artifact
       - name: Upload Previous Computer Science Jobs as Artifact
@@ -86,3 +104,4 @@ jobs:
         with:
           name: previous-computer-jobs
           path: prevComputerJobs.txt
+        if: steps.check_artifacts.outputs.artifacts_exist == 'false'

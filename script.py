@@ -226,8 +226,8 @@ def execute():
     url_computer_jobs = "https://preply.com/en/online/computer-tutoring-jobs"
     url_python_jobs = "https://preply.com/en/online/python-tutoring-jobs"
     
-    check_for_new_jobs(computer_category, url_computer_jobs, 'previous-computer-jobs.txt')
-    check_for_new_jobs(python_category, url_python_jobs, 'previous-python-jobs.txt')
+    check_for_new_jobs(computer_category, url_computer_jobs, 'previousComputerJobs.txt')
+    check_for_new_jobs(python_category, url_python_jobs, 'PreviousPythonJobs.txt')
 
 if __name__ == "__main__":
     execute()

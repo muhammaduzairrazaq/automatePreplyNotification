@@ -68,6 +68,10 @@ jobs:
           echo "Sample Computer Science job 1" > prevComputerJobs.txt
           echo "Sample Computer Science job 2" >> prevComputerJobs.txt
           echo "Sample Computer Science job 3" >> prevComputerJobs.txt
+          
+      # Run your script
+      - name: Run Python Script
+        run: python script.py
 
       # Upload prevPythonJobs.txt as an artifact
       - name: Upload Previous Python Jobs as Artifact
@@ -82,7 +86,3 @@ jobs:
         with:
           name: previous-computer-jobs
           path: prevComputerJobs.txt
-
-      # Run your script
-      - name: Run Python Script
-        run: python script.py

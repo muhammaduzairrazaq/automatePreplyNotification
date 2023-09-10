@@ -70,43 +70,15 @@ jobs:
           fi
         continue-on-error: true
         
-        # for debugging
-          
-      - name: List Files in Workspace
-        run: |
-          ls -l
-        continue-on-error: true
-          
-      - name: List Files in Current Directory
-        run: |
-          pwd
-          ls -l
-        continue-on-error: true
-
      # Create or populate prevPythonJobs.txt here (modify this step as needed)
       - name: Create Empty prevPythonJobs.txt
         run: touch prevPythonJobs.txt
         if: steps.check_artifacts.outputs.artifacts_exist == 'false'
 
-
       # Create or populate prevComputerJobs.txt here (modify this step as needed)
       - name: Create or Populate prevComputerJobs.txt
         run: touch prevComputerJobs.txt
         if: steps.check_artifacts.outputs.artifacts_exist == 'false'
-
-            
-        # for debugging
-          
-      - name: List Files in Workspace
-        run: |
-          ls -l
-        continue-on-error: true
-          
-      - name: List Files in Current Directory
-        run: |
-          pwd
-          ls -l
-        continue-on-error: true
 
       # Run your script
       - name: Run Python Script

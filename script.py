@@ -6,8 +6,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
-USERNAME = 'iamprouzair@gmail.com'
-PASSWORD = 'tvusgzrabxuscrud'
+USERNAME = ''  # Enter sender email.
+RECEIVER = ''  # Enter receiver email
+PASSWORD = ''  # Enter app password.
+
 
 def Scrap(link):
 
@@ -17,30 +19,30 @@ def Scrap(link):
         messageClass = "CardSummaryText-sc-1mpm6on-6 dldCOx"
         messages = soup.find_all(class_=messageClass)
         numberMessages = 3
-        extractedMessages = [message.get_text().replace('\n', ' ').strip() for message in messages[:numberMessages]]
+        extractedMessages = [message.get_text().replace(
+            '\n', ' ').strip() for message in messages[:numberMessages]]
         return extractedMessages
-    
+
     except requests.exceptions.RequestException as e:
         print(f"Error making the HTTP request: {e}")
         return []
-    
+
     except Exception as e:
         print(f"Error parsing HTML: {e}")
         return []
 
 
-
 def sendEmail(mailSubject, mailBody, pageLink):
 
     sender_email = USERNAME
-    receiver_email = "uzairrazzaq68@gmail.com"
+    receiver_email = RECEIVER
     subject = mailSubject
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = receiver_email
     message["Subject"] = subject
 
-    body=''
+    body = ''
     for i in range(len(mailBody)):
         body += f'{i+1}. {mailBody[i]} \n'
     body += pageLink
@@ -61,7 +63,7 @@ def sendEmail(mailSubject, mailBody, pageLink):
 
     except smtplib.SMTPException as e:
         print(f'Error: Unable to send email - {e}')
-    
+
     except Exception as e:
         print(f'An unexpected error occurred - {e}')
 
@@ -73,22 +75,23 @@ def readFiles(path):
         if os.path.exists(abs_path):
             with open(path, 'r') as file:
                 for line in file:
-                    returnJobs.append(line.strip()) 
+                    returnJobs.append(line.strip())
         return returnJobs
-    
+
     except FileNotFoundError:
         print(f'File not found: {path}')
         return []
     except Exception as e:
         print(f'An error occurred while reading the file: {e}')
         return []
-    
+
+
 def writeFiles(path, jobList):
-    
+
     try:
         abs_path = os.path.join(os.getcwd(), path)
         if os.path.exists(abs_path):
-            with open(path,'w') as file:
+            with open(path, 'w') as file:
                 for i, job in enumerate(jobList):
                     file.write(job)
                     if i < len(jobList) - 1:
@@ -96,9 +99,10 @@ def writeFiles(path, jobList):
 
     except FileNotFoundError:
         print(f'File not found: {path}')
-    
+
     except Exception as e:
         print(f'An error occurred while writing the file: {e}')
+
 
 def check_for_new_jobs(job_category, url, prev_jobs_file):
     prev_jobs = readFiles(prev_jobs_file)
@@ -113,16 +117,18 @@ def check_for_new_jobs(job_category, url, prev_jobs_file):
         sendEmail(job_category, jobs_to_send, url)
         writeFiles(prev_jobs_file, jobs_scraped)
 
+
 def execute():
     computer_category = 'Computerscience Jobs'
     python_category = 'Python Jobs'
     url_computer_jobs = "https://preply.com/en/online/computer-tutoring-jobs"
     url_python_jobs = "https://preply.com/en/online/python-tutoring-jobs"
-    
-    check_for_new_jobs(computer_category, url_computer_jobs, 'prevComputerJobs.txt')
+
+    check_for_new_jobs(computer_category, url_computer_jobs,
+                       'prevComputerJobs.txt')
     check_for_new_jobs(python_category, url_python_jobs, 'prevPythonJobs.txt')
 
+
 if __name__ == "__main__":
-   
-   execute()
-   
+
+    execute()

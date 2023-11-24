@@ -1,3 +1,1 @@
-I'm looking for someone who has experience with Astronomer Cosmos the Python package for Airflow and dbt integration.  Trying to troubleshoot issues I'm having setting it up (windows environment, not Mac or Linux)
-can you help me with  machine learning, Data structure and algorithm,  Advanced programming for data science.
-I'm looking for a tutor who is aware of python and SQL.  My main objective is to be able to store data  received in excel on daily basis in to SQL and then retrieve them back and do some analysis and save them into an excel again using python. Please let me know if you are aware of the above process. Regards Qusay
+
